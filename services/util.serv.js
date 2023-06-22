@@ -3,7 +3,7 @@ exports.getUrlParam = (url, param) => {
 
     const searchParams = url.searchParams;
     
-    return searchParams.get(param)
+    return searchParams.get(param);
 }
 
 //compute for page offset start and end
