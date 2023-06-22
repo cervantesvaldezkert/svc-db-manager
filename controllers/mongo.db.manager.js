@@ -8,7 +8,6 @@ const models = require('../models/response.model');
 //controller method for inserting tasks in the collection
 exports.insertTask = async(req, callback) => {
     try{
-
         let data = [];
         req.data.forEach(d => {
           d.docId = uuidv4();
@@ -41,7 +40,6 @@ exports.insertTask = async(req, callback) => {
 //controller method for fetching tasks list using the docId
 exports.getTaskById = async(docId, callback) => {
     try{
-
         mongodbService.findByDocId(docId, tasksConfig.dbName, tasksConfig.collectionName)
         .then(result => {
             if(result.length > 0) {
@@ -67,7 +65,6 @@ exports.getTaskById = async(docId, callback) => {
 //controller for fetching list tasks without limitation
 exports.getTasks = async(req, callback) => {
     try{
-
         mongodbService.findAll(tasksConfig.dbName, tasksConfig.collectionName)
         .then(result => {
             if(result.length > 0) {
@@ -122,7 +119,6 @@ exports.getTasksPaginated = async(req, callback) => {
 //controller method to update tasks in collection
 exports.updateTask = async(req, callback) => {
     try{
-
         mongodbService.update(req,tasksConfig.dbName, tasksConfig.collectionName)
         .then(result => {
             if(result.lastErrorObject.updatedExisting){
@@ -146,7 +142,6 @@ exports.updateTask = async(req, callback) => {
 //controller method for removing tasks by docId
 exports.removeTaskById = async(docId, callback) => {
     try{
-
         mongodbService.deleteByDocId(docId, tasksConfig.dbName, tasksConfig.collectionName)
         .then(result => {
             if(result.acknowledged) {
