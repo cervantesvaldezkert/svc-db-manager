@@ -8,9 +8,11 @@ const client = new MongoClient(uri);
 //supply specific dbName and collection 
 exports.insert = async (data, dbName, collectionName) => {
   try {
-      const collection = await initConnection(dbName, collectionName);
-
-      const insertManyResult = await collection.insertMany(data);
+      await client.connect();
+      const database = client.db(dbName);
+      const collection = database.collection(collectionName);
+      const updateOptions = { returnOriginal: true };
+      const insertManyResult = await collection.insertMany(data,updateOptions);
 
       await client.close();
       return insertManyResult;
@@ -25,9 +27,11 @@ exports.insert = async (data, dbName, collectionName) => {
 //supply specific dbName and collection 
 exports.findByDocId = async (docId, dbName, collectionName) => {
   try {
-  const collection = await initConnection(dbName, collectionName);
-  const findQuery = { docId: { $eq: docId } };
-  let result = [];
+    await client.connect();
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
+    const findQuery = { docId: { $eq: docId } };
+    let result = [];
 
     const cursor = await collection.find(findQuery).sort({ logDate: 1 });
     await cursor.forEach(recipe => {
@@ -45,7 +49,9 @@ exports.findByDocId = async (docId, dbName, collectionName) => {
 //supply specific dbName and collection 
 exports.findAll = async (dbName, collectionName) => {
   try {
-    const collection = await initConnection(dbName, collectionName);
+    await client.connect();
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
     let result = [];
 
     const cursor = await collection.find().sort({ logDate: 1 });
@@ -64,10 +70,12 @@ exports.findAll = async (dbName, collectionName) => {
 //supply specific dbName and collection 
 exports.update = async (req, dbName, collectionName) => {
   try {
-    const collection = await initConnection(dbName, collectionName);
+    await client.connect();
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
     const findOneQuery = { docId: req.docId };
     const updateDoc = { $set: req.data };
-    const updateOptions = { returnOriginal: false };
+    const updateOptions = { returnOriginal: true };
 
     const updateResult = await collection.findOneAndUpdate(
       findOneQuery,
@@ -87,9 +95,11 @@ exports.update = async (req, dbName, collectionName) => {
 //supply specific dbName and collection 
 exports.deleteByDocId = async (docId, dbName, collectionName) => {
   try {
-    const collection = initConnection(dbName, collectionName);
+    await client.connect();
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
     const deleteQuery = { docId: { $eq: docId } };
-
+    
     const deleteResult = await collection.deleteMany(deleteQuery);
 
     await client.close();
@@ -98,13 +108,4 @@ exports.deleteByDocId = async (docId, dbName, collectionName) => {
     console.error(`Something went wrong trying to delete documents: ${err}\n`);
   }
   
-}
-
-//generic function to initialize connection to mongodb
-initConnection = async(dbName, collectionName) => {
-  await client.connect();
-  const database = client.db(dbName);
-  const collection = database.collection(collectionName);
-
-  return collection;
 }
