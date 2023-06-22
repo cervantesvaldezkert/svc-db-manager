@@ -1,7 +1,7 @@
 const mongodbController = require('../controllers/mongo.db.manager');
 const utilServ = require('../services/util.serv');
 
-
+//external routes
 module.exports = (app) => {
 
     app.route('/health').get((req, res) => {
