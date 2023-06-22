@@ -1,0 +1,19 @@
+{
+  "name": "svc-db-manager",
+  "version": "1.0.0",
+  "description": "mongoDB database manager",
+  "main": "init-server.js",
+  "scripts": {
+    "dev": "nodemon init-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kert V. Cervantes",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "mongodb": "^5.6.0",
+    "nodemon": "^2.0.22",
+    "uuid": "^9.0.0"
+  }
+}
