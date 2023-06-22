@@ -1,4 +1,4 @@
-const mongodbController = require('../controllers/mongo.db.manager');
+const mongodbController = require('../controllers/task.mongodb.controller');
 const utilServ = require('../services/util.serv');
 
 //external routes

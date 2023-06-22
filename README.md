@@ -13,7 +13,7 @@ Models
    defines reponse model format to standardized api response as a default this would include successModel and failModel templates
 
 Controllers
- > mongo.db.manager.js
+ > task.mongodb.controller.js
    collection of methods for controlling the processes that need to happen before and/or after executing the function for mongodb query
    although this controls the process it should also have minimal code and encapsulated functions using the local services, this will make the process easier to read for future developers of this project
 
