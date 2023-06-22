@@ -19,7 +19,7 @@ exports.insertTask = async(req, callback) => {
             if(result.acknowledged) {
                 models.successModel = {
                     isSuccess: result.acknowledged,
-                    message: 'Successfully fetched documents',
+                    message: 'Successfully inserted documents',
                     result: result
                 }
             }else{
