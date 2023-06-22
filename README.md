@@ -22,12 +22,12 @@ Routes
    this is where the exposed routes for mongodb would be listed such us /tasks/get etc.. whether get/post method
    to have stand file format it is recommended to create another for a diffent type of connection such as couchbase.db.routes.js for couchbase routes or other route functionalities
 
-
 Services
  > mongo.db.serv.js
    this is the collection of methods for the querys/connection to mongodb server, each functionality(create,update,delete,read etc..) should be in a seperate function for easy manipulation of request and result
    if in case in the future another database will be integrated in this service, it would be better to create a differe .js file for the different database (ex. couchbase.db.serv.js) this would make the file less confusing for future developers of the project
 
+Others
 > .gitignore
    this is where you list the files and/or folders to be ignored by your code tracker such as git
 
@@ -43,6 +43,11 @@ Services
 > Dockerfile
   this file will the determines how the docker image is to be built, you can browse base images on https://hub.docker.com/ and select a base image to be used based on your project's needs, for this project we will just be using a basic node-slim image
 
+> Jenkinsfile
+  if you are using jenkins as your build piple this will be the file where you put your script/configuration for build instructions and where the built project will be housed
+  this will also include the configuration for your security scanning such as aquasec, nexus, polaris and such
+  this may also include automated deployment instructions
+  typically this is configured by your devops team
 
 =======================================
 Build image from docker file locally
